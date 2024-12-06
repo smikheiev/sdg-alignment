@@ -5,7 +5,8 @@
     "dev": "nodemon",
     "test": "vitest",
     "db:migration:generate": "drizzle-kit generate",
-    "db:migration:migrate": "drizzle-kit migrate"
+    "db:migration:migrate": "drizzle-kit migrate",
+    "db:seed": "etsc && node ./dist/db/seed/seed.js"
   },
   "dependencies": {
     "api-types": "workspace:*",
