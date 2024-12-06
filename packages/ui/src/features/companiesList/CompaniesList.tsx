@@ -1,10 +1,8 @@
+import { Company } from 'api-types'
 import { Link } from 'react-router'
 
 type Props = {
-  companies: {
-    id: string
-    name: string
-  }[]
+  companies: Company[]
   selectedCompanyId?: string
 }
 
