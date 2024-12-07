@@ -1,4 +1,6 @@
 import { useParams } from 'react-router'
+import SdgAlignmentsChart from './SdgAlignmentsChart'
+import { sdgAlignments } from './sdgAlignmentsMock'
 
 export default function CompanySdgAlignmentPage() {
   const { companyId } = useParams()
@@ -8,9 +10,11 @@ export default function CompanySdgAlignmentPage() {
   }
 
   return (
-    <div>
+    <div className="flex-col">
       <h2 className="text-2xl font-semibold">{companyId}</h2>
-      <p>More details coming soon...</p>
+      <div className="w-full h-96 mt-8">
+        <SdgAlignmentsChart sdgAlignments={sdgAlignments} />
+      </div>
     </div>
   )
 }
