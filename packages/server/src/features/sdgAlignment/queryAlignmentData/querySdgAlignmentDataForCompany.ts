@@ -1,9 +1,12 @@
-import { and, asc, eq, isNotNull } from 'drizzle-orm'
+import { and, asc, eq } from 'drizzle-orm'
 import * as schema from '../../../db/schema'
 import db from '../../../db/db'
+import queryProductAlignmentsFromProductTree from './queryProductAlignmentsFromProductTree'
 
-export default function querySdgAlignmentDataForCompany(companyId: string) {
-  return db
+export default async function querySdgAlignmentDataForCompany(
+  companyId: string,
+) {
+  const rows = await db
     .select({
       alignmentStatus: schema.productToSdgAlignments.alignmentStatus,
       productId: schema.products.id,
@@ -26,11 +29,30 @@ export default function querySdgAlignmentDataForCompany(companyId: string) {
       schema.sdgs,
       eq(schema.sdgs.id, schema.productToSdgAlignments.sdgId),
     )
-    .where(
-      and(
-        eq(schema.companyProducts.companyId, companyId),
-        isNotNull(schema.productToSdgAlignments.alignmentStatus),
-      ),
-    )
+    .where(and(eq(schema.companyProducts.companyId, companyId)))
     .orderBy(asc(schema.productToSdgAlignments.sdgId))
+
+  const productAlignmentsFromTree =
+    await queryProductAlignmentsFromProductTree(companyId)
+
+  const rowsWithResolvedAlignments = rows.map((row) => {
+    if (row.alignmentStatus !== null) {
+      return row
+    }
+
+    const parentAlignment = productAlignmentsFromTree.find(
+      (productAlignmentFromTree) =>
+        row.productId === productAlignmentFromTree.child_product_id,
+    )
+    if (parentAlignment) {
+      return {
+        ...row,
+        alignmentStatus: parentAlignment.alignment_status,
+      }
+    }
+
+    return null
+  })
+
+  return rowsWithResolvedAlignments.filter((row) => row !== null)
 }

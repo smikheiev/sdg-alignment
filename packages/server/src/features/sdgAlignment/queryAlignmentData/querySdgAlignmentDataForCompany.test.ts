@@ -14,7 +14,7 @@ beforeEach(async () => {
   await db.delete(schema.companies)
 
   await db.insert(schema.companies).values(company)
-  await db.insert(schema.products).values([apple, technology])
+  await db.insert(schema.products).values([food, fruit, apple, technology])
 })
 
 it('returns alignment data for company', async () => {
@@ -137,16 +137,118 @@ it('returns multiple sdgs for the same product', async () => {
   ])
 })
 
-it.skip('returns parent product alignment if product does not have alignment', () => {
-  expect(1).toBe(2)
+it('returns parent product alignment if product does not have alignment', async () => {
+  await db.insert(schema.companyProducts).values([
+    {
+      id: '12345678-1234-1234-1234-123456789012',
+      companyId: company.id,
+      productId: apple.id,
+      revenuePercentage: 30,
+    },
+  ])
+  await db.insert(schema.productToSdgAlignments).values([
+    {
+      id: '5c7828b5-0843-4106-b382-77e57531be61',
+      productId: apple.id,
+      sdgId: 2,
+      alignmentStatus: null,
+    },
+    {
+      id: '8fe1d141-e06b-4e7f-bf92-019f5114f133',
+      productId: fruit.id,
+      sdgId: 2,
+      alignmentStatus: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
+    },
+  ])
+
+  const result = await querySdgAlignmentDataForCompany(company.id)
+
+  expect(result).toEqual([
+    {
+      alignmentStatus: 'strongly_aligned',
+      productId: apple.id,
+      revenuePercentage: 30,
+      sdgId: 2,
+    },
+  ])
 })
 
-it.skip('returns parent product alignment recursively if product does not have alignment', () => {
-  expect(1).toBe(2)
+it('returns parent product alignment recursively if product does not have alignment', async () => {
+  await db.insert(schema.companyProducts).values([
+    {
+      id: '63a0ef96-2ae2-453e-a5f6-3905a6468824',
+      companyId: company.id,
+      productId: apple.id,
+      revenuePercentage: 30,
+    },
+  ])
+  await db.insert(schema.productToSdgAlignments).values([
+    {
+      id: '5c7828b5-0843-4106-b382-77e57531be61',
+      productId: apple.id,
+      sdgId: 2,
+      alignmentStatus: null,
+    },
+    {
+      id: '63aec2dc-9461-4983-9a59-197e04c04aa5',
+      productId: fruit.id,
+      sdgId: 2,
+      alignmentStatus: null,
+    },
+    {
+      id: '8fe1d141-e06b-4e7f-bf92-019f5114f133',
+      productId: food.id,
+      sdgId: 2,
+      alignmentStatus: schema.SdgAlignmentStatus.ALIGNED,
+    },
+  ])
+
+  const result = await querySdgAlignmentDataForCompany(company.id)
+
+  expect(result).toEqual([
+    {
+      alignmentStatus: 'aligned',
+      productId: apple.id,
+      revenuePercentage: 30,
+      sdgId: 2,
+    },
+  ])
 })
 
-it.skip('does not return parent product alignment if product has alignment', () => {
-  expect(1).toBe(2)
+it('does not return parent product alignment if product has alignment', async () => {
+  await db.insert(schema.companyProducts).values([
+    {
+      id: '63a0ef96-2ae2-453e-a5f6-3905a6468824',
+      companyId: company.id,
+      productId: apple.id,
+      revenuePercentage: 30,
+    },
+  ])
+  await db.insert(schema.productToSdgAlignments).values([
+    {
+      id: '5c7828b5-0843-4106-b382-77e57531be61',
+      productId: apple.id,
+      sdgId: 2,
+      alignmentStatus: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
+    },
+    {
+      id: '63aec2dc-9461-4983-9a59-197e04c04aa5',
+      productId: fruit.id,
+      sdgId: 2,
+      alignmentStatus: schema.SdgAlignmentStatus.ALIGNED,
+    },
+  ])
+
+  const result = await querySdgAlignmentDataForCompany(company.id)
+
+  expect(result).toEqual([
+    {
+      alignmentStatus: 'strongly_aligned',
+      productId: apple.id,
+      revenuePercentage: 30,
+      sdgId: 2,
+    },
+  ])
 })
 
 it('filters out if product or parent product has no alignment', async () => {
@@ -204,10 +306,20 @@ const company = {
   id: 'c4b62757-b213-459f-9e28-063fc2f0c170',
   name: 'XXX',
 }
+const food = {
+  id: 'b0a0daf0-6695-40c7-a66e-81b94562b5f8',
+  name: 'Food',
+  parentProductId: null,
+}
+const fruit = {
+  id: '886b0afb-0a31-437d-9e46-f3fb2a37cd15',
+  name: 'Fruit',
+  parentProductId: food.id,
+}
 const apple = {
   id: '30ec96f2-51fc-4252-9bd7-0e1420213d56',
   name: 'Apple',
-  parentProductId: null,
+  parentProductId: fruit.id,
 }
 const technology = {
   id: '30ec96f2-51fc-4252-9bd7-0e1420213d58',
