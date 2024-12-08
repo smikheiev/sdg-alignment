@@ -1,14 +1,15 @@
 import { sql } from 'drizzle-orm'
+import { camelCase } from 'change-case'
 import db from '../../../db/db'
 import * as schema from '../../../db/schema'
 
 type Output = {
-  product_id: string
-  product_name: string
-  child_product_id: string
-  child_product_name: string
-  alignment_status: schema.SdgAlignmentStatus | null
-  sdg_id: number
+  productId: string
+  productName: string
+  childProductId: string
+  childProductName: string
+  alignmentStatus: schema.SdgAlignmentStatus | null
+  sdgId: number
 }
 
 export default async function queryProductAlignmentsFromProductTree(
@@ -70,5 +71,12 @@ export default async function queryProductAlignmentsFromProductTree(
         alignment_status IS NOT NULL;
     `,
   )
-  return resolvedAlignments.rows
+  return resolvedAlignments.rows.map(propNamesToCamelCase) as Output[]
+}
+
+function propNamesToCamelCase(obj: Record<string, unknown>) {
+  return Object.entries(obj).reduce(
+    (obj, [key, value]) => Object.assign(obj, { [camelCase(key)]: value }),
+    {},
+  )
 }

@@ -48,12 +48,12 @@ it("returns child's product alignment if it has one", async () => {
 
   expect(result).toEqual([
     {
-      product_id: apple.id,
-      product_name: apple.name,
-      child_product_id: apple.id,
-      child_product_name: apple.name,
-      alignment_status: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
-      sdg_id: 2,
+      productId: apple.id,
+      productName: apple.name,
+      childProductId: apple.id,
+      childProductName: apple.name,
+      alignmentStatus: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
+      sdgId: 2,
     },
   ])
 })
@@ -86,12 +86,12 @@ it("returns parent's product alignment if child does not have it", async () => {
 
   expect(result).toEqual([
     {
-      product_id: fruit.id,
-      product_name: fruit.name,
-      child_product_id: apple.id,
-      child_product_name: apple.name,
-      alignment_status: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
-      sdg_id: 2,
+      productId: fruit.id,
+      productName: fruit.name,
+      childProductId: apple.id,
+      childProductName: apple.name,
+      alignmentStatus: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
+      sdgId: 2,
     },
   ])
 })
@@ -130,12 +130,12 @@ it("returns further parent's product alignment if direct parent does not have it
 
   expect(result).toEqual([
     {
-      product_id: food.id,
-      product_name: food.name,
-      child_product_id: apple.id,
-      child_product_name: apple.name,
-      alignment_status: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
-      sdg_id: 2,
+      productId: food.id,
+      productName: food.name,
+      childProductId: apple.id,
+      childProductName: apple.name,
+      alignmentStatus: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
+      sdgId: 2,
     },
   ])
 })
@@ -186,20 +186,20 @@ it('returns alignments for multiple products', async () => {
 
   expect(result).toEqual([
     {
-      product_id: fruit.id,
-      product_name: fruit.name,
-      child_product_id: apple.id,
-      child_product_name: apple.name,
-      alignment_status: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
-      sdg_id: 2,
+      productId: fruit.id,
+      productName: fruit.name,
+      childProductId: apple.id,
+      childProductName: apple.name,
+      alignmentStatus: schema.SdgAlignmentStatus.STRONGLY_ALIGNED,
+      sdgId: 2,
     },
     {
-      product_id: technology.id,
-      product_name: technology.name,
-      child_product_id: videoStreaming.id,
-      child_product_name: videoStreaming.name,
-      alignment_status: schema.SdgAlignmentStatus.MISALIGNED,
-      sdg_id: 7,
+      productId: technology.id,
+      productName: technology.name,
+      childProductId: videoStreaming.id,
+      childProductName: videoStreaming.name,
+      alignmentStatus: schema.SdgAlignmentStatus.MISALIGNED,
+      sdgId: 7,
     },
   ])
 })

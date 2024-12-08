@@ -2179,6 +2179,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"change-case@npm:5.4.4":
+  version: 5.4.4
+  resolution: "change-case@npm:5.4.4"
+  checksum: 10c0/2a9c2b9c9ad6ab2491105aaf506db1a9acaf543a18967798dcce20926c6a173aa63266cb6189f3086e3c14bf7ae1f8ea4f96ecc466fcd582310efa00372f3734
+  languageName: node
+  linkType: hard
+
 "check-error@npm:^2.1.1":
   version: 2.1.1
   resolution: "check-error@npm:2.1.1"
@@ -5934,6 +5941,7 @@ __metadata:
     "@types/pg": "npm:^8"
     "@types/ramda": "npm:^0"
     api-types: "workspace:*"
+    change-case: "npm:5.4.4"
     cors: "npm:2.8.5"
     dotenv: "npm:16.4.7"
     drizzle-kit: "npm:0.29.1"

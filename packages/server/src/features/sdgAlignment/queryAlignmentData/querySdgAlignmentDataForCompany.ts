@@ -42,12 +42,12 @@ export default async function querySdgAlignmentDataForCompany(
 
     const parentAlignment = productAlignmentsFromTree.find(
       (productAlignmentFromTree) =>
-        row.productId === productAlignmentFromTree.child_product_id,
+        row.productId === productAlignmentFromTree.childProductId,
     )
     if (parentAlignment) {
       return {
         ...row,
-        alignmentStatus: parentAlignment.alignment_status,
+        alignmentStatus: parentAlignment.alignmentStatus,
       }
     }
 

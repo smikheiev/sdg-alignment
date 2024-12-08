@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "api-types": "workspace:*",
+    "change-case": "5.4.4",
     "cors": "2.8.5",
     "dotenv": "16.4.7",
     "drizzle-orm": "0.37.0",
