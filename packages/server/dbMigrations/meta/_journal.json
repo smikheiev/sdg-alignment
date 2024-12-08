@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1733570559112,
+      "tag": "0000_add-companies-table",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1733570617102,
+      "tag": "0001_add-sdgs-table",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1733570727033,
+      "tag": "0002_add-sdgs",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1733570770953,
+      "tag": "0003_add-products-table",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1733570806116,
+      "tag": "0004_add-company-products-table",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1733608868360,
+      "tag": "0005_add-sdg-alignment-status-enum",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1733609177849,
+      "tag": "0006_add-product-to-sdg-alignments-table",
+      "breakpoints": true
+    }
+  ]
+}

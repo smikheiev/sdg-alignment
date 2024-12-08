@@ -11,8 +11,12 @@
     "lint": "eslint src --max-warnings=0"
   },
   "dependencies": {
+    "@tanstack/react-query": "5.62.2",
+    "api-types": "workspace:*",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-router": "7.0.2",
+    "recharts": "2.14.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "6.6.3",

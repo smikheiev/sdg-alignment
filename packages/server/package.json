@@ -3,18 +3,29 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "nodemon",
-    "test": "vitest"
+    "test": "DATABASE_URL=postgres://postgres:postgres@localhost:5432/test vitest",
+    "db:migration:generate": "drizzle-kit generate",
+    "db:migration:migrate": "drizzle-kit migrate",
+    "db:seed": "etsc && node ./dist/db/seed/seed.js"
   },
   "dependencies": {
+    "api-types": "workspace:*",
+    "change-case": "5.4.4",
     "cors": "2.8.5",
     "dotenv": "16.4.7",
-    "express": "4.21.2"
+    "drizzle-orm": "0.37.0",
+    "express": "4.21.2",
+    "pg": "8.13.1",
+    "ramda": "0.30.1"
   },
   "devDependencies": {
     "@types/cors": "2.8.17",
     "@types/dotenv": "8.2.3",
     "@types/express": "4.17.21",
     "@types/node": "22.10.1",
+    "@types/pg": "^8",
+    "@types/ramda": "^0",
+    "drizzle-kit": "0.29.1",
     "esbuild": "0.24.0",
     "esbuild-node-tsc": "2.0.5",
     "nodemon": "3.1.7",

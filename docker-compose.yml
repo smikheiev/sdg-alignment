@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  server-postgres:
+    container_name: server-postgres
+    extends:
+      file: packages/server/docker-compose.yml
+      service: server-postgres
+
+volumes:
+  server-postgres-data:

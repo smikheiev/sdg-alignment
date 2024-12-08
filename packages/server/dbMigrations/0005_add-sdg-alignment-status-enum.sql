@@ -1,0 +1,1 @@
+CREATE TYPE "public"."sdg_alignment" AS ENUM('strongly_aligned', 'aligned', 'misaligned', 'strongly_misaligned');
